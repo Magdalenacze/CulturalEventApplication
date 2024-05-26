@@ -1,10 +1,7 @@
 package com.example.culturaleventapplication.culturalevent.entity;
 
 import com.example.culturaleventapplication.culturalevent.exception.CulturalEventException;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +14,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
+@Table(name = "events")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class CulturalEventEntity {
