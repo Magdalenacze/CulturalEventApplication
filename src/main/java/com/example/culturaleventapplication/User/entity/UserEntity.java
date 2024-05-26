@@ -2,13 +2,12 @@ package com.example.culturaleventapplication.User.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "APPLICATION_USERS")
-@AllArgsConstructor
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,8 +16,8 @@ public class UserEntity {
     private String city;
     private String emailAdres;
 
-    public UserEntity(String userName, String city, String emailAdress) {
-        this.nameUser = userName;
+    public UserEntity(String nameUser, String city, String emailAdress) {
+        this.nameUser = nameUser;
         this.city = city;
         this.emailAdres = emailAdress;
     }
