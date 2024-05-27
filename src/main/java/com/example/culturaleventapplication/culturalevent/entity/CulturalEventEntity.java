@@ -22,7 +22,6 @@ public class CulturalEventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long eventId;
-
     private UUID technicalEventId;
     private String city;
     private Timestamp eventDate;

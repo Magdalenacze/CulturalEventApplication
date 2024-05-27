@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,7 +24,7 @@ public class NotifyService {
         String cityToSearch = userDto.getCity();
         List<CulturalEventEntity> matchedEvents = findEventsByCity(cityToSearch);
         if (!matchedEvents.isEmpty()) {
-            savenetificationsToRepo(matchedEvents, userDto);
+            saveNotificationsToRepo(matchedEvents, userDto);
         }
 
     }
@@ -37,9 +36,9 @@ public class NotifyService {
                 .collect(Collectors.toList());
     }
 
-    private void savenetificationsToRepo(List<CulturalEventEntity> matchedEvents, UserDto userDto) {
-        for (int i = 0; i < matchedEvents.size(); i++) {
-            NotifyEntity notifyTwoSave = new NotifyEntity(userDto.getId(), matchedEvents.get(i).getTechnicalEventId(), matchedEvents.get(i).getEventName(), matchedEvents.get(i).getCity());
+    private void saveNotificationsToRepo(List<CulturalEventEntity> selectedEvents, UserDto userDto) {
+        for (int i = 0; i < selectedEvents.size(); i++) {
+            NotifyEntity notifyTwoSave = new NotifyEntity(userDto.getId(), selectedEvents.get(i).getTechnicalEventId(), selectedEvents.get(i).getEventName(), selectedEvents.get(i).getCity());
             notifyRepo.save(notifyTwoSave);
         }
 

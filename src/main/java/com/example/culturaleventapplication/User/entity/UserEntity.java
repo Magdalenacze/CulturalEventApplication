@@ -10,6 +10,7 @@ import lombok.*;
 @Table(name = "APPLICATION_USERS")
 public class UserEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String nameUser;
     private String city;
