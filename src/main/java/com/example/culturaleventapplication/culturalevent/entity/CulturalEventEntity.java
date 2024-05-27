@@ -1,4 +1,4 @@
-package com.example.culturaleventapplication.culturalevent.entity;
+package com.example.culturaleventapplication.CulturalEvent.entity;
 
 import com.example.culturaleventapplication.culturalevent.exception.CulturalEventException;
 import jakarta.persistence.*;

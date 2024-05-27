@@ -1,6 +1,7 @@
-package com.example.culturaleventapplication.culturalevent.repository;
+package com.example.culturaleventapplication.CulturalEvent.repository;
 
-import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
+
+import com.example.culturaleventapplication.CulturalEvent.entity.CulturalEventEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

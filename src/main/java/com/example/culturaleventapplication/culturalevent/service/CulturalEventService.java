@@ -1,4 +1,4 @@
-package com.example.culturaleventapplication.culturalevent.service;
+package com.example.culturaleventapplication.CulturalEvent.service;
 
 import com.example.culturaleventapplication.culturalevent.dto.CulturalEventDto;
 

@@ -1,8 +1,8 @@
-package com.example.culturaleventapplication.culturalevent.service;
+package com.example.culturaleventapplication.CulturalEvent.service;
 
+import com.example.culturaleventapplication.CulturalEvent.entity.CulturalEventEntity;
+import com.example.culturaleventapplication.CulturalEvent.repository.CulturalEventRepository;
 import com.example.culturaleventapplication.culturalevent.dto.CulturalEventDto;
-import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
-import com.example.culturaleventapplication.culturalevent.repository.CulturalEventRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

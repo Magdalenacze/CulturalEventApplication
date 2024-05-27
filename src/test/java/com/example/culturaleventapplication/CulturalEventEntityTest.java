@@ -1,6 +1,6 @@
 package com.example.culturaleventapplication;
 
-import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
+import com.example.culturaleventapplication.CulturalEvent.entity.CulturalEventEntity;
 import com.example.culturaleventapplication.culturalevent.exception.CulturalEventException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

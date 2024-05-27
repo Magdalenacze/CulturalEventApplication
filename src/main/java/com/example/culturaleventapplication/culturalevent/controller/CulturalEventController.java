@@ -1,7 +1,7 @@
-package com.example.culturaleventapplication.culturalevent.controller;
+package com.example.culturaleventapplication.CulturalEvent.controller;
 
+import com.example.culturaleventapplication.CulturalEvent.service.CulturalEventService;
 import com.example.culturaleventapplication.culturalevent.dto.CulturalEventDto;
-import com.example.culturaleventapplication.culturalevent.service.CulturalEventService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
