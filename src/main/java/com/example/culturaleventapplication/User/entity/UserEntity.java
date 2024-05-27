@@ -14,11 +14,11 @@ public class UserEntity {
     private long id;
     private String nameUser;
     private String city;
-    private String emailAdres;
+    private String emailAddress;
 
     public UserEntity(String nameUser, String city, String emailAdress) {
         this.nameUser = nameUser;
         this.city = city;
-        this.emailAdres = emailAdress;
+        this.emailAddress = emailAdress;
     }
 }

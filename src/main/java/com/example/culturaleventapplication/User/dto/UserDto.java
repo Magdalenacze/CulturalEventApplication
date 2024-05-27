@@ -1,10 +1,12 @@
 package com.example.culturaleventapplication.User.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
 @Getter
+@Setter
 public class UserDto {
     private long id;
     private String nameUser;

@@ -4,18 +4,14 @@ import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.mapper.Mappers;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
-import org.assertj.core.api.ObjectAssert;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class UsersServiceTest {
@@ -42,7 +38,7 @@ class UsersServiceTest {
         usersService.addUser(userDto);
         List<UserEntity> all = repoUsers.findAll();
         UserDto toTest = mappers.toDto(all.getFirst());
-        //WHEN
+        //THEN
         assertThat(toTest).isEqualTo(userDto);
         assertThat(all).hasSize(1);
         assertThat(toTest.getNameUser()).isEqualTo(userDto.getNameUser());

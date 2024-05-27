@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class Mappers implements MappersInterface {
     @Override
     public UserDto toDto(UserEntity userEntity){
-        return new UserDto(userEntity.getNameUser(), userEntity.getCity(), userEntity.getEmailAdres());
+        return new UserDto(userEntity.getNameUser(), userEntity.getCity(), userEntity.getEmailAddress());
     }
     @Override
     public UserEntity toEnrtity(UserDto userDto){
