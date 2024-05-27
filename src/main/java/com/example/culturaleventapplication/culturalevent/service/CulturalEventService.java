@@ -9,4 +9,6 @@ public interface CulturalEventService {
     public void createNewEvent(CulturalEventDto culturalEventDto);
 
     List<CulturalEventDto> getAllEvents();
+
+    List<CulturalEventDto> getAllEventsByCity(String city);
 }
