@@ -49,4 +49,26 @@ public class CulturalEventServiceImplTest {
         CulturalEventEntity culturalEventEntity = all.get(0);
         assertThat(culturalEventEntity).isEqualTo(referenceEntity);
     }
+
+    @Test
+    void should_display_all_events_successfully() {
+        //given
+        CulturalEventDto exampleDto1 = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto1);
+
+        CulturalEventDto exampleDto2 = new CulturalEventDto(
+                "Cracow",
+                "2027-05-26 13:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto2);
+
+        //when
+        List<CulturalEventDto> events = culturalEventService.getAllEvents();
+
+        //then
+        assertThat(events).hasSize(2);
+    }
 }

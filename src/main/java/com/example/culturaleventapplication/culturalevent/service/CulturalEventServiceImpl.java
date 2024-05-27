@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class CulturalEventServiceImpl implements CulturalEventService {
@@ -20,5 +22,13 @@ public class CulturalEventServiceImpl implements CulturalEventService {
                 culturalEventDto.getCity(),
                 culturalEventDto.getEventDate(),
                 culturalEventDto.getEventName()));
+    }
+
+    @Override
+    public List<CulturalEventDto> getAllEvents() {
+        return culturalEventRepository.findAll()
+                .stream()
+                .map(e -> new CulturalEventDto(e.getCity(), e.getEventDate().toString(), e.getEventName()))
+                .toList();
     }
 }
