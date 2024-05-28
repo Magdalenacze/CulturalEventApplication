@@ -2,6 +2,8 @@ package com.example.culturaleventapplication.culturalevent.dto;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter

@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface CulturalEventService {
 
-    public void createNewEvent(CulturalEventDto culturalEventDto);
+   void createNewEvent(CulturalEventDto culturalEventDto);
 
     List<CulturalEventDto> getAllEvents();
 
     List<CulturalEventDto> getAllEventsByCity(String city);
+
+    void deleteEvent(Long eventId);
 }
