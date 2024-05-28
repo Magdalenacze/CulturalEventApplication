@@ -2,12 +2,15 @@ package com.example.culturaleventapplication.culturalevent.service;
 
 import com.example.culturaleventapplication.culturalevent.dto.CulturalEventDto;
 import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
+import com.example.culturaleventapplication.culturalevent.exception.CulturalEventServiceException;
 import com.example.culturaleventapplication.culturalevent.repository.CulturalEventRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 @Service
 @AllArgsConstructor
@@ -44,5 +47,13 @@ public class CulturalEventServiceImpl implements CulturalEventService {
                         e.getEventDate().toString(),
                         e.getEventName()))
                 .toList();
+    }
+
+    @Override
+    public void deleteEvent(Long eventId) {
+        Optional<CulturalEventEntity> culturalEventEntity = culturalEventRepository.findById(eventId);
+        culturalEventEntity.orElseThrow(() -> new CulturalEventServiceException(
+                "The event was not deleted because it does not exist!"));
+        culturalEventRepository.deleteById(eventId);
     }
 }

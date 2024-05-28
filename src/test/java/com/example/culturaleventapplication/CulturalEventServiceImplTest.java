@@ -2,16 +2,20 @@ package com.example.culturaleventapplication;
 
 import com.example.culturaleventapplication.culturalevent.dto.CulturalEventDto;
 import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
+import com.example.culturaleventapplication.culturalevent.exception.CulturalEventServiceException;
 import com.example.culturaleventapplication.culturalevent.repository.CulturalEventRepository;
 import com.example.culturaleventapplication.culturalevent.service.CulturalEventService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class CulturalEventServiceImplTest {
@@ -120,5 +124,61 @@ public class CulturalEventServiceImplTest {
 
         //then
         assertThat(eventsByCity).hasSize(0);
+    }
+
+    @Test
+    public void should_delete_the_existing_event_successfully() {
+        //given
+        CulturalEventDto exampleDto = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto);
+
+        CulturalEventEntity culturalEventEntity = culturalEventRepository.findAll().get(0);
+
+        //when
+        culturalEventService.deleteEvent(culturalEventEntity.getEventId());
+
+        //then
+        List<CulturalEventEntity> all = culturalEventRepository.findAll();
+        assertThat(all).hasSize(0);
+    }
+
+    @Test
+    void should_throw_an_exception_when_deleting_a_non_existent_event() {
+        //given
+        CulturalEventDto exampleDto = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto);
+
+        //when
+        Executable e = () -> culturalEventService.deleteEvent(-1l);
+
+        //then
+        CulturalEventServiceException culturalEventServiceException = assertThrows(
+                CulturalEventServiceException.class, e);
+        assertThat(culturalEventServiceException.getMessage()).contains(
+                "The event was not deleted because it does not exist!");
+    }
+
+    @Test
+    void should_not_throw_an_exception_when_deleting_an_existing_event() {
+        //given
+        CulturalEventDto exampleDto = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto);
+
+        CulturalEventEntity culturalEventEntity = culturalEventRepository.findAll().get(0);
+
+        //when
+        Executable e = () -> culturalEventService.deleteEvent(culturalEventEntity.getEventId());
+
+        //then
+        assertDoesNotThrow(e);
     }
 }

@@ -32,4 +32,9 @@ public class CulturalEventController {
     public List<CulturalEventDto> getAllEventsByCity(@RequestParam String city) {
         return culturalEventService.getAllEventsByCity(city);
     }
+
+    @DeleteMapping("{id}")
+    public void deleteEvent(@PathVariable("id") Long eventId) {
+        culturalEventService.deleteEvent(eventId);
+    }
 }
