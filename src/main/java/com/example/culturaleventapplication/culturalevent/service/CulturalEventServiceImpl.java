@@ -28,7 +28,21 @@ public class CulturalEventServiceImpl implements CulturalEventService {
     public List<CulturalEventDto> getAllEvents() {
         return culturalEventRepository.findAll()
                 .stream()
-                .map(e -> new CulturalEventDto(e.getCity(), e.getEventDate().toString(), e.getEventName()))
+                .map(e -> new CulturalEventDto(
+                        e.getCity(),
+                        e.getEventDate().toString(),
+                        e.getEventName()))
+                .toList();
+    }
+
+    @Override
+    public List<CulturalEventDto> getAllEventsByCity(String city) {
+        return culturalEventRepository.findAllByCityIgnoreCase(city)
+                .stream()
+                .map(e -> new CulturalEventDto(
+                        e.getCity(),
+                        e.getEventDate().toString(),
+                        e.getEventName()))
                 .toList();
     }
 }

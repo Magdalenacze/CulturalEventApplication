@@ -26,4 +26,10 @@ public class CulturalEventController {
     public List<CulturalEventDto> getAllEvents(@RequestParam(required = false) CulturalEventDto culturalEventDto) {
         return culturalEventService.getAllEvents();
     }
+
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CulturalEventDto> getAllEventsByCity(@RequestParam String city) {
+        return culturalEventService.getAllEventsByCity(city);
+    }
 }

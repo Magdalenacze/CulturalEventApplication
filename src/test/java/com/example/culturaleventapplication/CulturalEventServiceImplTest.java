@@ -51,7 +51,7 @@ public class CulturalEventServiceImplTest {
     }
 
     @Test
-    void should_display_all_events_successfully() {
+    void should_get_all_events_successfully() {
         //given
         CulturalEventDto exampleDto1 = new CulturalEventDto(
                 "Warsaw",
@@ -70,5 +70,55 @@ public class CulturalEventServiceImplTest {
 
         //then
         assertThat(events).hasSize(2);
+    }
+
+    @Test
+    void should_get_all_events_by_city_successfully() {
+        //given
+        CulturalEventDto exampleDto1 = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto1);
+
+        CulturalEventDto exampleDto2 = new CulturalEventDto(
+                "Cracow",
+                "2027-05-26 13:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto2);
+
+        CulturalEventDto exampleDto3 = new CulturalEventDto(
+                "Warsaw",
+                "2028-05-26 14:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto3);
+
+        //when
+        List<CulturalEventDto> eventsByCity = culturalEventService.getAllEventsByCity("Warsaw");
+
+        //then
+        assertThat(eventsByCity).hasSize(2);
+    }
+
+    @Test
+    void should_not_allow_get_city_without_events() {
+        //given
+        CulturalEventDto exampleDto1 = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto1);
+
+        CulturalEventDto exampleDto2 = new CulturalEventDto(
+                "Cracow",
+                "2027-05-26 13:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto2);
+
+        //when
+        List<CulturalEventDto> eventsByCity = culturalEventService.getAllEventsByCity("Katowice");
+
+        //then
+        assertThat(eventsByCity).hasSize(0);
     }
 }
