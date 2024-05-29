@@ -1,6 +1,7 @@
 package com.example.culturaleventapplication.User.entity;
 
 
+import com.example.culturaleventapplication.Notification.entity.NotifyEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,8 @@ import lombok.*;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
+
     private String nameUser;
     private String city;
     private String emailAddress;
