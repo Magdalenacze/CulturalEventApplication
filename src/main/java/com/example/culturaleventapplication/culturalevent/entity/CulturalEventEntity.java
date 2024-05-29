@@ -1,4 +1,4 @@
-package com.example.culturaleventapplication.culturalevent.entity;
+package com.example.culturaleventapplication.CulturalEvent.entity;
 
 import com.example.culturaleventapplication.culturalevent.exception.CulturalEventException;
 import jakarta.persistence.*;
@@ -22,7 +22,6 @@ public class CulturalEventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long eventId;
-
     private UUID technicalEventId;
     private String city;
     private Timestamp eventDate;
@@ -59,11 +58,5 @@ public class CulturalEventEntity {
         if (eventDate.before(new Date())) {
             throw new CulturalEventException("You cannot create a new backdated event!");
         }
-    }
-
-    public void updateEntityData(CulturalEventEntity updatedEventEntity) {
-        this.city = updatedEventEntity.getCity();
-        this.eventDate = updatedEventEntity.getEventDate();
-        this.eventName = updatedEventEntity.getEventName();
     }
 }

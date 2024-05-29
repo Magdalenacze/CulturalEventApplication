@@ -1,18 +1,8 @@
-package com.example.culturaleventapplication.culturalevent.service;
+package com.example.culturaleventapplication.CulturalEvent.service;
 
 import com.example.culturaleventapplication.culturalevent.dto.CulturalEventDto;
 
-import java.util.List;
-
 public interface CulturalEventService {
 
-   void createNewEvent(CulturalEventDto culturalEventDto);
-
-    List<CulturalEventDto> getAllEvents();
-
-    List<CulturalEventDto> getAllEventsByCity(String city);
-
-    void deleteEvent(Long eventId);
-
-    void updateEvent(Long eventId, CulturalEventDto culturalEventDto);
+    public void createNewEvent(CulturalEventDto culturalEventDto);
 }

@@ -1,13 +1,13 @@
 package com.example.culturaleventapplication.culturalevent.dto;
 
-import lombok.*;
-
-import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@EqualsAndHashCode
 public class CulturalEventDto {
 
     private String city;
