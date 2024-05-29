@@ -38,7 +38,7 @@ public class CulturalEventController {
         culturalEventService.deleteEvent(eventId);
     }
 
-    @PostMapping("{id}")
+    @PatchMapping("{id}")
     public void updateEvent(@PathVariable("id") Long eventId, @RequestBody CulturalEventDto culturalEventDto) {
         culturalEventService.updateEvent(eventId, culturalEventDto);
     }
