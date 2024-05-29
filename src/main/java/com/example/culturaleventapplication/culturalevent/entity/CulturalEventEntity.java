@@ -60,4 +60,10 @@ public class CulturalEventEntity {
             throw new CulturalEventException("You cannot create a new backdated event!");
         }
     }
+
+    public void updateEntityData(CulturalEventEntity updatedEventEntity) {
+        this.city = updatedEventEntity.getCity();
+        this.eventDate = updatedEventEntity.getEventDate();
+        this.eventName = updatedEventEntity.getEventName();
+    }
 }
