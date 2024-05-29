@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 @Service
 @AllArgsConstructor
@@ -50,10 +49,24 @@ public class CulturalEventServiceImpl implements CulturalEventService {
     }
 
     @Override
+    @Transactional
     public void deleteEvent(Long eventId) {
         Optional<CulturalEventEntity> culturalEventEntity = culturalEventRepository.findById(eventId);
         culturalEventEntity.orElseThrow(() -> new CulturalEventServiceException(
                 "The event was not deleted because it does not exist!"));
         culturalEventRepository.deleteById(eventId);
+    }
+
+    @Override
+    @Transactional
+    public void updateEvent(Long eventId, CulturalEventDto culturalEventDto) {
+        Optional<CulturalEventEntity> culturalEventEntity = culturalEventRepository.findById(eventId);
+        culturalEventEntity.orElseThrow(() -> new CulturalEventServiceException(
+                "The event was not updated because it does not exist!"));
+        culturalEventEntity.get().updateEntityData(new CulturalEventEntity(
+                culturalEventDto.getCity(),
+                culturalEventDto.getEventDate(),
+                culturalEventDto.getEventName()));
+        culturalEventRepository.save(culturalEventEntity.get());
     }
 }

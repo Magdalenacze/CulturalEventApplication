@@ -13,4 +13,6 @@ public interface CulturalEventService {
     List<CulturalEventDto> getAllEventsByCity(String city);
 
     void deleteEvent(Long eventId);
+
+    void updateEvent(Long eventId, CulturalEventDto culturalEventDto);
 }

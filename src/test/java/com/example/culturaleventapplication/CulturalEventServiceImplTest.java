@@ -5,6 +5,7 @@ import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEn
 import com.example.culturaleventapplication.culturalevent.exception.CulturalEventServiceException;
 import com.example.culturaleventapplication.culturalevent.repository.CulturalEventRepository;
 import com.example.culturaleventapplication.culturalevent.service.CulturalEventService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -177,6 +178,84 @@ public class CulturalEventServiceImplTest {
 
         //when
         Executable e = () -> culturalEventService.deleteEvent(culturalEventEntity.getEventId());
+
+        //then
+        assertDoesNotThrow(e);
+    }
+
+    @Test
+    public void should_update_the_existing_event_successfully() {
+        //given
+        CulturalEventDto exampleDto1 = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto1);
+
+        CulturalEventEntity culturalEventEntity = culturalEventRepository.findAll().get(0);
+
+        CulturalEventDto exampleDto2 = new CulturalEventDto(
+                "Warsaw",
+                "2027-05-26 12:00:00",
+                "Concert123");
+
+        CulturalEventEntity exampleEntity2 = new CulturalEventEntity(
+                exampleDto2.getCity(),
+                exampleDto2.getEventDate(),
+                exampleDto2.getEventName());
+
+        //when
+        culturalEventService.updateEvent(culturalEventEntity.getEventId(), exampleDto2);
+
+        //then
+        List<CulturalEventEntity> all = culturalEventRepository.findAll();
+        Assertions.assertThat(all.get(0)).isEqualTo(exampleEntity2);
+    }
+
+    @Test
+    void should_throw_an_exception_when_updating_a_non_existent_event() {
+        //given
+        CulturalEventDto exampleDto1 = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto1);
+
+        CulturalEventEntity culturalEventEntity = culturalEventRepository.findAll().get(0);
+
+        CulturalEventDto exampleDto2 = new CulturalEventDto(
+                "Warsaw",
+                "2027-05-26 12:00:00",
+                "Concert123");
+
+        //when
+        Executable e = () -> culturalEventService.updateEvent(-1l, exampleDto2);
+
+        //then
+        CulturalEventServiceException culturalEventServiceException = assertThrows(
+                CulturalEventServiceException.class, e);
+        assertThat(culturalEventServiceException.getMessage()).contains(
+                "The event was not updated because it does not exist!");
+    }
+
+    @Test
+    void should_not_throw_an_exception_when_updating_an_existing_event() {
+        //given
+        CulturalEventDto exampleDto1 = new CulturalEventDto(
+                "Warsaw",
+                "2026-05-26 12:00:00",
+                "Concert");
+        culturalEventService.createNewEvent(exampleDto1);
+
+        CulturalEventEntity culturalEventEntity = culturalEventRepository.findAll().get(0);
+
+        CulturalEventDto exampleDto2 = new CulturalEventDto(
+                "Warsaw",
+                "2027-05-26 12:00:00",
+                "Concert123");
+
+        //when
+        Executable e = () -> culturalEventService.updateEvent(culturalEventEntity.getEventId(), exampleDto2);
 
         //then
         assertDoesNotThrow(e);
