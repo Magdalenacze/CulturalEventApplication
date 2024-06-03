@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CulturalEventControllerAdvice {
 
-    @ExceptionHandler(com.example.culturaleventapplication.culturalevent.exception.CulturalEventException.class)
-    public ResponseEntity<ErrorResponse> handleCulturalEventException(com.example.culturaleventapplication.culturalevent.exception.CulturalEventException e) {
+    @ExceptionHandler(CulturalEventException.class)
+    public ResponseEntity<ErrorResponse> handleCulturalEventException(CulturalEventException e) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse(e.getMessage()));
     }
 
-    @ExceptionHandler(com.example.culturaleventapplication.culturalevent.exception.CulturalEventServiceException.class)
-    public ResponseEntity handleCulturalEventServiceException(com.example.culturaleventapplication.culturalevent.exception.CulturalEventServiceException e){
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(CulturalEventServiceException.class)
+    public ResponseEntity<ErrorResponse> handleCulturalEventServiceException(CulturalEventServiceException e){
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .body(new ErrorResponse(e.getMessage()));
     }
 
