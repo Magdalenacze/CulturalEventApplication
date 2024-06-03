@@ -1,14 +1,17 @@
 package com.example.culturaleventapplication.User.entity;
 
 
-import com.example.culturaleventapplication.Notification.entity.NotifyEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "APPLICATION_USERS")
+@Table(name = "APPLICATION_USERS", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"emailAddress"})
+})
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
