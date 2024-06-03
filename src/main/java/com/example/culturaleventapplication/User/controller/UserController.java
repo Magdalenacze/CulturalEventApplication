@@ -1,15 +1,16 @@
 package com.example.culturaleventapplication.User.controller;
 
+import com.example.culturaleventapplication.Notification.dto.TechnicalNotifyDto;
+import com.example.culturaleventapplication.Notification.service.NotifyService;
 import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.service.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -17,11 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private final UsersService usersService;
+    @Autowired
+    private final NotifyService notifyService;
 
-   /* @PostMapping("/useradd")
-    public void addUser (@RequestBody UserDto userDto){
-        usersService.addUser(userDto);
-    }*/
 
     @PostMapping("/useradd")
     public ResponseEntity<String> addUser(@RequestBody UserDto userDto) {
@@ -31,4 +30,12 @@ public class UserController {
         usersService.addUser(userDto);
         return ResponseEntity.status(HttpStatus.OK).body("ok");
     }
+
+    @GetMapping("/{id}/notifications")
+    public List<TechnicalNotifyDto> netNotificationsfromrepo(@PathVariable Long id) {
+        return notifyService.getAllbyUserId(id);
+    }
 }
+
+
+

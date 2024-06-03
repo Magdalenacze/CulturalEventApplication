@@ -9,4 +9,5 @@ public class CulturalEventApplication {
     public static void main(String[] args) {
         SpringApplication.run(CulturalEventApplication.class, args);
     }
+
 }

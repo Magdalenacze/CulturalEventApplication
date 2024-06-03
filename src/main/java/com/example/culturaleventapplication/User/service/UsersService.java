@@ -7,8 +7,12 @@ import com.example.culturaleventapplication.User.mapper.Mappers;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.culturaleventapplication.CulturalEvent.entity.CulturalEventEntity;
+import com.example.culturaleventapplication.CulturalEvent.repository.CulturalEventRepository;
 
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -17,11 +21,14 @@ public class UsersService implements UsersServiceInterface {
     private Mappers mappers;
     private RepoUsers repoUsers;
     private NotifyService notifyService;
+    private CulturalEventRepository culturalEventRepository;
 
     public void addUser(UserDto userDto) {
         UserEntity userEntity = mappers.toEnrtity(userDto);
         repoUsers.save(userEntity);
-        notifyService.createNotificationFromUserSide(userDto);
+        String cityToSearch = userDto.getCity();
+        String userEmail = userDto.getEmailAdres();
+        notifyService.saveNotificationsToRepo(findEventsByCity(cityToSearch), getUserEntitybyEmail(userEmail));
     }
 
     public boolean isEmailAddressCorrect(String emailAddress) {
@@ -30,4 +37,22 @@ public class UsersService implements UsersServiceInterface {
                 .matcher(emailAddress)
                 .matches();
     }
+
+
+
+    public List<UserEntity> getAll() {
+        return repoUsers.findAll();
+    }
+
+    private List<CulturalEventEntity> findEventsByCity(String city) {
+        List<CulturalEventEntity> eventDtoList = culturalEventRepository.findAll();
+        return eventDtoList.stream()
+                .filter(event -> event.getCity().equalsIgnoreCase(city))
+                .collect(Collectors.toList());
+    }
+
+    private List<UserEntity> getUserEntitybyEmail(String userEmail) {
+        return getAll().stream().filter(e -> e.getEmailAddress().equals(userEmail)).toList();
+    }
+
 }

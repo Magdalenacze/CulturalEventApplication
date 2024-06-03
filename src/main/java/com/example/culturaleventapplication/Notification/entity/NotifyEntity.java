@@ -18,13 +18,17 @@ public class NotifyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long userid;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id") // Nazwa kolumny w tabeli NOTIFICATIONS_Ent, która przechowuje identyfikator użytkownika
+    private UserEntity user;
+
     private UUID eventid;
     private String nameOfEvent;
     private String eventCity;
 
-    public NotifyEntity(Long userid, UUID eventid, String nameOfEvent, String eventCity) {
-        this.userid = userid;
+    public NotifyEntity(UserEntity user, UUID eventid, String nameOfEvent, String eventCity) {
+        this.user = user;
         this.eventid = eventid;
         this.nameOfEvent = nameOfEvent;
         this.eventCity = eventCity;
