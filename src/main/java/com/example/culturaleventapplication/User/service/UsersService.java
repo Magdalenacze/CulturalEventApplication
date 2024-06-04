@@ -5,10 +5,10 @@ import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.mapper.Mappers;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
+import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
+import com.example.culturaleventapplication.culturalevent.repository.CulturalEventRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.example.culturaleventapplication.CulturalEvent.entity.CulturalEventEntity;
-import com.example.culturaleventapplication.CulturalEvent.repository.CulturalEventRepository;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -37,7 +37,6 @@ public class UsersService implements UsersServiceInterface {
                 .matcher(emailAddress)
                 .matches();
     }
-
 
 
     public List<UserEntity> getAll() {

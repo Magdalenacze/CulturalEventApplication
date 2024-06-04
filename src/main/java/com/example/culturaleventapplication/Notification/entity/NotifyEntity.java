@@ -1,6 +1,5 @@
 package com.example.culturaleventapplication.Notification.entity;
 
-import com.example.culturaleventapplication.CulturalEvent.entity.CulturalEventEntity;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
