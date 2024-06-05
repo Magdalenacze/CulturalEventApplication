@@ -22,14 +22,3 @@ spring:
 server:
   port: 8082
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: pompaciepla27@gmail.com
-    password: Szaranagajama12
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
