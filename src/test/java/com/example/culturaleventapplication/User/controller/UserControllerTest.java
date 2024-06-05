@@ -1,62 +1,85 @@
 package com.example.culturaleventapplication.User.controller;
 
+import com.example.culturaleventapplication.Notification.dto.NotifyDto;
+import com.example.culturaleventapplication.Notification.dto.TechnicalNotifyDto;
+import com.example.culturaleventapplication.Notification.entity.NotifyEntity;
+import com.example.culturaleventapplication.Notification.repository.NotifyRepo;
+import com.example.culturaleventapplication.Notification.service.NotifyService;
 import com.example.culturaleventapplication.User.dto.UserDto;
+import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.service.UsersService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import static java.lang.reflect.Array.get;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(UserController.class)
-public class UserControllerTest {
+class UserControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
+    @Mock
     private UsersService usersService;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Mock
+    private NotifyService notifyService;
+    @Mock
+    private NotifyRepo notifyRepo;
 
-    private UserDto validUserDto;
-    private UserDto invalidUserDto;
+    @InjectMocks
+    private UserController userController;
 
     @BeforeEach
-    public void setup() {
-        validUserDto = new UserDto("jan Kowalski", "Warszawa", "jk@gmail.com");
-
-        invalidUserDto = new UserDto("jan Kowalski", "Warszawa", "jkgmail.com");
-
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void addUser_ShouldReturnStatusOk_WhenRequestIsValid() throws Exception {
-        Mockito.doNothing().when(usersService).addUser(Mockito.any(UserDto.class));
+    void addUser_InvalidEmail_ReturnsBadRequest() {
+        // GIVEN
+        UserDto userDto = new UserDto("Jan Kowalski", "Warszawa", "jk@gmail.com");
+        userDto.setEmailAdres("bzdura");
 
-        mockMvc.perform(post("/users/useradd")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(validUserDto)))
-                .andExpect(status().isOk());
+        when(usersService.isEmailAddressCorrect(userDto.getEmailAdres())).thenReturn(false);
 
-        Mockito.verify(usersService, Mockito.times(1)).addUser(Mockito.any(UserDto.class));
+
+        // WHEN
+        ResponseEntity<String> response = userController.addUser(userDto);
+
+
+        // THEN
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Invalid email address", response.getBody());
+        verify(usersService, never()).addUser(any(UserDto.class));
     }
 
     @Test
-    public void addUser_ShouldReturnStatusBadRequest_WhenRequestIsInvalid() throws Exception {
-        mockMvc.perform(post("/users/useradd")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidUserDto)))
-                .andExpect(status().isBadRequest());
+    void addUser_ValidEmail_ReturnsOk() {
+        // GIVEN
+        UserDto userDto = new UserDto("Jan Kowalski", "Warszawa", "jk@gmail.com");
 
-        Mockito.verify(usersService, Mockito.never()).addUser(Mockito.any(UserDto.class));
+
+        // WHEN
+        when(usersService.isEmailAddressCorrect(userDto.getEmailAdres())).thenReturn(true);
+        ResponseEntity<String> response = userController.addUser(userDto);
+
+
+        // THEN
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("ok", response.getBody());
+        verify(usersService, times(1)).addUser(userDto);
     }
+
 }

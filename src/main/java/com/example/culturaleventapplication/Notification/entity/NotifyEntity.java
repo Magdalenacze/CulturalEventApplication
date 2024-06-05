@@ -19,7 +19,7 @@ public class NotifyEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id") // Nazwa kolumny w tabeli NOTIFICATIONS_Ent, która przechowuje identyfikator użytkownika
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     private UUID eventid;

@@ -34,10 +34,14 @@ class UsersServiceTest {
     void is_user_added_propertly() {
         //GIVEN
         UserDto userDto = new UserDto("Jan Kowalski", "Warszawa", "jk@gmail.com");
+
+
         //WHEN
         usersService.addUser(userDto);
         List<UserEntity> all = repoUsers.findAll();
         UserDto toTest = mappers.toDto(all.getFirst());
+
+
         //THEN
         assertThat(toTest).isEqualTo(userDto);
         assertThat(all).hasSize(1);
