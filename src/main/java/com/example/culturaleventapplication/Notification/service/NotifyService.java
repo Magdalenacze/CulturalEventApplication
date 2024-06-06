@@ -18,7 +18,6 @@ public class NotifyService {
 
     private NotifyRepo notifyRepo;
     private RepoUsers repoUsers;
-    private NotifyMapper notifyMapper;
 
 
     public void saveNotificationsToRepo(List<CulturalEventEntity> selectedEvents, List<UserEntity> userEntity) {
@@ -31,11 +30,6 @@ public class NotifyService {
 
     public List<TechnicalNotifyDto> getAllbyUserId(Long id) {
         UserEntity userToSearch = repoUsers.getReferenceById(id);
-        System.out.println("User to search: " + userToSearch.toString());
-
-        List<NotifyEntity> allNotifications = notifyRepo.findAll();
-        System.out.println("All notifications: " + allNotifications);
-
         return notifyRepo.findAll().stream().
                 filter(e -> e.getUser().getId().equals(userToSearch.getId())).
                 map(e -> new TechnicalNotifyDto(e.getNameOfEvent(), e.getEventCity())).

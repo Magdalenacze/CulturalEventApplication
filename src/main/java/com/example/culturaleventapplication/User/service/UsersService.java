@@ -39,6 +39,7 @@ public class UsersService implements UsersServiceInterface {
     }
 
 
+
     public List<UserEntity> getAll() {
         return repoUsers.findAll();
     }

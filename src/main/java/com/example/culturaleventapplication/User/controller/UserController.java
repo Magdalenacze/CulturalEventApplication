@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/notifications")
-    public List<TechnicalNotifyDto> netNotificationsfromrepo(@PathVariable Long id) {
+    public List<TechnicalNotifyDto> setNotificationsFromRepo(@PathVariable Long id) {
         return notifyService.getAllbyUserId(id);
     }
 }
