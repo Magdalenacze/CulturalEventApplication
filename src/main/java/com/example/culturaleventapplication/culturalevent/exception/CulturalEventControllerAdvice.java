@@ -20,7 +20,7 @@ public class CulturalEventControllerAdvice {
     @ExceptionHandler(CulturalEventServiceException.class)
     public ResponseEntity<ErrorResponse> handleCulturalEventServiceException(CulturalEventServiceException e){
         return ResponseEntity
-                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(e.getMessage()));
     }
 

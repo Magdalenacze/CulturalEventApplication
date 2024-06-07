@@ -2,7 +2,6 @@ package com.example.culturaleventapplication.Notification.service;
 
 import com.example.culturaleventapplication.Notification.dto.TechnicalNotifyDto;
 import com.example.culturaleventapplication.Notification.entity.NotifyEntity;
-import com.example.culturaleventapplication.Notification.mapper.NotifyMapper;
 import com.example.culturaleventapplication.Notification.repository.NotifyRepo;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
@@ -22,19 +21,21 @@ public class NotifyService {
 
     public void saveNotificationsToRepo(List<CulturalEventEntity> selectedEvents, List<UserEntity> userEntity) {
         for (int i = 0; i < selectedEvents.size(); i++) {
-            NotifyEntity notifyTwoSave = new NotifyEntity(userEntity.getFirst(), selectedEvents.get(i).getTechnicalEventId(), selectedEvents.get(i).getEventName(), selectedEvents.get(i).getCity());
+            NotifyEntity notifyTwoSave = new NotifyEntity(
+                    userEntity.getFirst(),
+                    selectedEvents.get(i).getTechnicalEventId(),
+                    selectedEvents.get(i).getEventName(),
+                    selectedEvents.get(i).getCity(),
+                    selectedEvents.get(i).getEventDate().toString());
             notifyRepo.save(notifyTwoSave);
         }
-
     }
 
     public List<TechnicalNotifyDto> getAllbyUserId(Long id) {
         UserEntity userToSearch = repoUsers.getReferenceById(id);
         return notifyRepo.findAll().stream().
                 filter(e -> e.getUser().getId().equals(userToSearch.getId())).
-                map(e -> new TechnicalNotifyDto(e.getNameOfEvent(), e.getEventCity())).
+                map(e -> new TechnicalNotifyDto(e.getNameOfEvent(), e.getEventCity(), e.getEventDate())).
                 toList();
-
-
     }
 }

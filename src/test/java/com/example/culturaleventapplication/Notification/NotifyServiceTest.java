@@ -8,7 +8,7 @@ import com.example.culturaleventapplication.User.repository.RepoUsers;
 import com.example.culturaleventapplication.User.service.UsersService;
 import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
 import com.example.culturaleventapplication.culturalevent.repository.CulturalEventRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -35,13 +35,12 @@ class NotifyServiceTest {
     @Autowired
     private Mappers mappers;
 
-    @BeforeEach
+    @AfterEach
     void tearDown() {
-        repoUsers.deleteAll();
         notifyRepo.deleteAll();
+        repoUsers.deleteAll();
         culturalEventRepository.deleteAll();
     }
-
 
     @Test
     void whether_notifications_are_correctly_created_and_saved_in_repository() {

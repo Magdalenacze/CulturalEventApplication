@@ -3,6 +3,7 @@ package com.example.culturaleventapplication.User.service;
 import com.example.culturaleventapplication.Notification.service.NotifyService;
 import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.entity.UserEntity;
+import com.example.culturaleventapplication.User.exception.UserServiceException;
 import com.example.culturaleventapplication.User.mapper.Mappers;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
 import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,11 @@ public class UsersService implements UsersServiceInterface {
     private CulturalEventRepository culturalEventRepository;
 
     public void addUser(UserDto userDto) {
+       List<UserEntity> userByEmail = repoUsers.findAllByEmailAddress(userDto.getEmailAdres());
+        if (userByEmail.size() > 0) {
+           throw new UserServiceException("You cannot create a user with " +
+                    "this email address because it already exists!");
+        }
         UserEntity userEntity = mappers.toEnrtity(userDto);
         repoUsers.save(userEntity);
         String cityToSearch = userDto.getCity();

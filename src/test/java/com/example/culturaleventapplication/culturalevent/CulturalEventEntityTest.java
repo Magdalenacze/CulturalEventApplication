@@ -1,4 +1,4 @@
-package com.example.culturaleventapplication;
+package com.example.culturaleventapplication.culturalevent;
 
 import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
 import com.example.culturaleventapplication.culturalevent.exception.CulturalEventException;

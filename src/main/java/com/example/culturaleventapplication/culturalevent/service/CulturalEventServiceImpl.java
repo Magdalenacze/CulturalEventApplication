@@ -67,6 +67,5 @@ public class CulturalEventServiceImpl implements CulturalEventService {
                 culturalEventDto.getCity(),
                 culturalEventDto.getEventDate(),
                 culturalEventDto.getEventName()));
-        culturalEventRepository.save(culturalEventEntity.get());
     }
 }
