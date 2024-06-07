@@ -21,16 +21,19 @@ public class NotifyEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
     private UUID eventid;
     private String nameOfEvent;
     private String eventCity;
+    private String eventDate;
 
-    public NotifyEntity(UserEntity user, UUID eventid, String nameOfEvent, String eventCity) {
+    public NotifyEntity(UserEntity user, UUID eventid, String nameOfEvent, String eventCity, String eventDate) {
         this.user = user;
         this.eventid = eventid;
         this.nameOfEvent = nameOfEvent;
         this.eventCity = eventCity;
+        this.eventDate = eventDate;
     }
+
+
 }
 

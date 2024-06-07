@@ -13,11 +13,11 @@ import java.util.UUID;
 public class NotifyMapper implements NotifyMapperInterface {
 
     public NotifyEntity toNotifyEntity(NotifyDto notifyDto, UserEntity userEntity) {
-        return new NotifyEntity(userEntity, notifyDto.getEventid(), notifyDto.getNameOfEvent(), notifyDto.getEventCity());
+        return new NotifyEntity(userEntity, notifyDto.getEventid(), notifyDto.getNameOfEvent(), notifyDto.getEventCity(), notifyDto.getEventDate());
     }
 
 
     public NotifyDto toNotifyDto(NotifyEntity notifyEntity, UserDto userDto) {
-        return new NotifyDto(userDto, notifyEntity.getEventid(), notifyEntity.getNameOfEvent(), notifyEntity.getEventCity());
+        return new NotifyDto(userDto, notifyEntity.getEventid(), notifyEntity.getNameOfEvent(), notifyEntity.getEventCity(), notifyEntity.getEventDate());
     }
 }
