@@ -1,9 +1,6 @@
 package com.example.culturaleventapplication.Notification.dto;
 
-import com.example.culturaleventapplication.User.dto.UserDto;
 import lombok.Getter;
-
-import java.util.UUID;
 
 @Getter
 public class TechnicalNotifyDto {

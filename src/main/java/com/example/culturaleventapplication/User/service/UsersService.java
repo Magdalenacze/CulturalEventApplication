@@ -38,8 +38,6 @@ public class UsersService implements UsersServiceInterface {
                 .matches();
     }
 
-
-
     public List<UserEntity> getAll() {
         return repoUsers.findAll();
     }
@@ -54,5 +52,4 @@ public class UsersService implements UsersServiceInterface {
     private List<UserEntity> getUserEntitybyEmail(String userEmail) {
         return getAll().stream().filter(e -> e.getEmailAddress().equals(userEmail)).toList();
     }
-
 }
