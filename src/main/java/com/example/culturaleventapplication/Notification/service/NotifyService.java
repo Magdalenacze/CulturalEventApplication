@@ -5,7 +5,6 @@ import com.example.culturaleventapplication.Notification.entity.NotifyEntity;
 import com.example.culturaleventapplication.Notification.repository.NotifyRepo;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
-import com.example.culturaleventapplication.User.service.UserReadService;
 import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,6 @@ public class NotifyService implements EventCreatedEventListener, NotificationSer
 
     private NotifyRepo notifyRepo;
     private RepoUsers repoUsers;
-    private final UserReadService userReadService;
 
     public void saveNotificationsToRepo(List<CulturalEventEntity> selectedEvents, List<UserEntity> userEntity) {
         for (int i = 0; i < selectedEvents.size(); i++) {
@@ -34,14 +32,14 @@ public class NotifyService implements EventCreatedEventListener, NotificationSer
     public List<TechnicalNotifyDto> getAllbyUserId(Long id) {
         UserEntity userToSearch = repoUsers.getReferenceById(id);
         return notifyRepo.findAll().stream().
-                filter(e -> e.getUser().getId().equals(userToSearch.getId())).
+                filter(e -> e.getUser().equals(userToSearch.getId())).
                 map(e -> new TechnicalNotifyDto(e.getNameOfEvent(), e.getEventCity())).
                 toList();
     }
 
     @Override
     public void createNotification(CulturalEventEntity culturalEventEntity) {
-        List<UserEntity> userByCityList = userReadService.getUserByCity(culturalEventEntity.getCity());
+        List<UserEntity> userByCityList = repoUsers.findAllUserByCity(culturalEventEntity.getCity());
         userByCityList
                 .stream()
                 .forEach(e -> notifyRepo.save(new NotifyEntity(e,

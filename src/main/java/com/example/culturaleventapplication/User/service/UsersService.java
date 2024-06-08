@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
-public class UsersService implements UsersServiceInterface, UserReadService {
+public class UsersService implements UsersServiceInterface {
 
     private Mappers mappers;
     private RepoUsers repoUsers;
@@ -51,10 +51,5 @@ public class UsersService implements UsersServiceInterface, UserReadService {
 
     private List<UserEntity> getUserEntitybyEmail(String userEmail) {
         return getAll().stream().filter(e -> e.getEmailAddress().equals(userEmail)).toList();
-    }
-
-    @Override
-    public List<UserEntity> getUserByCity(String city) {
-        return repoUsers.findAllUserByCity(city);
     }
 }
