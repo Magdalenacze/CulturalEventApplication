@@ -16,14 +16,17 @@ import java.util.Optional;
 public class CulturalEventServiceImpl implements CulturalEventService {
 
     private final CulturalEventRepository culturalEventRepository;
+    private final EventCreatedEventListener eventCreatedEventListener;
 
     @Override
     @Transactional
     public void createNewEvent(CulturalEventDto culturalEventDto) {
-        culturalEventRepository.save(new CulturalEventEntity(
+        CulturalEventEntity culturalEventEntity = new CulturalEventEntity(
                 culturalEventDto.getCity(),
                 culturalEventDto.getEventDate(),
-                culturalEventDto.getEventName()));
+                culturalEventDto.getEventName());
+        culturalEventRepository.save(culturalEventEntity);
+        eventCreatedEventListener.notifyEventCreated(culturalEventEntity);
     }
 
     @Override
@@ -67,6 +70,5 @@ public class CulturalEventServiceImpl implements CulturalEventService {
                 culturalEventDto.getCity(),
                 culturalEventDto.getEventDate(),
                 culturalEventDto.getEventName()));
-        culturalEventRepository.save(culturalEventEntity.get());
     }
 }

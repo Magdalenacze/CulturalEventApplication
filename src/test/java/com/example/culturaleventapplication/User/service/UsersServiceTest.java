@@ -4,7 +4,7 @@ import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.mapper.Mappers;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,11 +22,10 @@ class UsersServiceTest {
     private RepoUsers repoUsers;
     
     @Autowired
-    
     private Mappers mappers;
 
-    @BeforeEach
-    void tearDown() {
+    @AfterEach
+    void tearDown2() {
         repoUsers.deleteAll();
     }
 
