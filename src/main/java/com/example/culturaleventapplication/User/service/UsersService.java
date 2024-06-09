@@ -8,6 +8,7 @@ import com.example.culturaleventapplication.User.repository.RepoUsers;
 import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
 import com.example.culturaleventapplication.culturalevent.repository.CulturalEventRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,9 +24,14 @@ public class UsersService implements UsersServiceInterface {
     private NotifyService notifyService;
     private CulturalEventRepository culturalEventRepository;
 
-    public void addUser(UserDto userDto) {
-        UserEntity userEntity = mappers.toEnrtity(userDto);
-        repoUsers.save(userEntity);
+    public void addUser(UserDto userDto) throws EmailAlreadyExistsException {
+        try {
+            UserEntity userEntity = mappers.toEnrtity(userDto);
+            repoUsers.save(userEntity);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new EmailAlreadyExistsException("User with given email already exists:" + userDto.getEmailAdres());
+        }
         String cityToSearch = userDto.getCity();
         String userEmail = userDto.getEmailAdres();
         notifyService.saveNotificationsToRepo(findEventsByCity(cityToSearch), getUserEntitybyEmail(userEmail));
@@ -37,7 +43,6 @@ public class UsersService implements UsersServiceInterface {
                 .matcher(emailAddress)
                 .matches();
     }
-
 
 
     public List<UserEntity> getAll() {
@@ -55,4 +60,9 @@ public class UsersService implements UsersServiceInterface {
         return getAll().stream().filter(e -> e.getEmailAddress().equals(userEmail)).toList();
     }
 
+    public class EmailAlreadyExistsException extends RuntimeException {
+        public EmailAlreadyExistsException(String message) {
+            super(message);
+        }
+    }
 }

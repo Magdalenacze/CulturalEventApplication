@@ -24,17 +24,23 @@ public class UserController {
 
     @PostMapping("/useradd")
     public ResponseEntity<String> addUser(@RequestBody UserDto userDto) {
-        if (userDto.getEmailAdres() == null || !usersService.isEmailAddressCorrect(userDto.getEmailAdres())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid email address");
+        try {
+            if (userDto.getEmailAdres() == null || !usersService.isEmailAddressCorrect(userDto.getEmailAdres())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid email address");
+            }
+            usersService.addUser(userDto);
+            return ResponseEntity.status(HttpStatus.OK).body("ok");
+        } catch (UsersService.EmailAlreadyExistsException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        usersService.addUser(userDto);
-        return ResponseEntity.status(HttpStatus.OK).body("ok");
     }
 
     @GetMapping("/{id}/notifications")
     public List<TechnicalNotifyDto> setNotificationsFromRepo(@PathVariable Long id) {
         return notifyService.getAllbyUserId(id);
     }
+
+
 }
 
 
