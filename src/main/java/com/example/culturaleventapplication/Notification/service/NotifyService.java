@@ -2,7 +2,6 @@ package com.example.culturaleventapplication.Notification.service;
 
 import com.example.culturaleventapplication.Notification.dto.TechnicalNotifyDto;
 import com.example.culturaleventapplication.Notification.entity.NotifyEntity;
-import com.example.culturaleventapplication.Notification.mapper.NotifyMapper;
 import com.example.culturaleventapplication.Notification.repository.NotifyRepo;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
@@ -74,7 +73,6 @@ public class NotifyService {
 
     public void createNotificationFromEventside (CulturalEventDto culturalEventDto) {
         List<UserEntity> users = usersToNotify(culturalEventDto);
-        String eventId = findEventid(culturalEventDto);
         for (int i = 0; i < users.size(); i++) {
             NotifyEntity notifyToSave = new NotifyEntity(users.get(i), findtechnicaltid(culturalEventDto), culturalEventDto.getEventName(), culturalEventDto.getCity(), culturalEventDto.getEventDate());
             notifyRepo.save(notifyToSave);

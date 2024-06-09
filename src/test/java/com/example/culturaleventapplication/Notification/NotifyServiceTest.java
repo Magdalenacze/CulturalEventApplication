@@ -42,7 +42,6 @@ class NotifyServiceTest {
 
     @BeforeEach
     void tearDown() {
-        //repoUsers.deleteAll();
         notifyRepo.deleteAll();
         culturalEventRepository.deleteAll();
     }
@@ -62,22 +61,20 @@ class NotifyServiceTest {
 
         //THEN
         assertFalse(notifications.isEmpty());
-        //assertThat(notifications.get(0).getUser().getCity()).isEqualTo(userDto.getCity());
-        //assertThat(notifications.get(0).getUser().getNameUser()).isEqualTo(userDto.getNameUser());
-        //assertThat(notifications.get(0).getUser().getEmailAddress()).isEqualTo(userDto.getEmailAdres());
-        //assertThat(notifications.get(0).getEventCity().equals(userDto.getCity()));
+        assertThat(notifications.get(0).getUser().getCity()).isEqualTo(userDto.getCity());
+        assertThat(notifications.get(0).getUser().getNameUser()).isEqualTo(userDto.getNameUser());
+        assertThat(notifications.get(0).getUser().getEmailAddress()).isEqualTo(userDto.getEmailAdres());
+        assertThat(notifications.get(0).getEventCity().equals(userDto.getCity()));
     }
     @Test
     void whether_notifications_are_correctly_created_and_saved_in_repository_when_event_is_added(){
         //GIVEN
         UserDto userDto = new UserDto("Jan Kowalski", "Warszawa", "jk@gmail.com");
-        //CulturalEventEntity event = new CulturalEventEntity("Warszawa", "2024-12-01 12:45:00", "Spotkania przy ognisku");
         CulturalEventDto event2 = new CulturalEventDto("Warszawa", "2024-12-01 12:45:00", "Spotkania przy ognisku");
 
         usersService.addUser(userDto);
         //WHEN
 
-        //culturalEventRepository.save(event);
         culturalEventService.createNewEvent(event2);
         List<NotifyEntity> notifications = notifyRepo.findAll();
 
