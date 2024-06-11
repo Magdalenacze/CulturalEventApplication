@@ -1,7 +1,7 @@
 package com.example.culturaleventapplication.Notification;
 
 import com.example.culturaleventapplication.Notification.entity.NotifyEntity;
-import com.example.culturaleventapplication.Notification.repository.NotifyRepo;
+import com.example.culturaleventapplication.Notification.repository.NotificationRepository;
 import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.mapper.Mappers;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
@@ -29,7 +29,7 @@ class NotifyServiceTest {
     private RepoUsers repoUsers;
 
     @Autowired
-    private NotifyRepo notifyRepo;
+    private NotificationRepository notifyRepo;
 
     @Autowired
     private CulturalEventService culturalEventService;

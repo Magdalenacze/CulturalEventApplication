@@ -2,7 +2,7 @@ package com.example.culturaleventapplication.Notification.service;
 
 import com.example.culturaleventapplication.Notification.dto.TechnicalNotifyDto;
 import com.example.culturaleventapplication.Notification.entity.NotifyEntity;
-import com.example.culturaleventapplication.Notification.repository.NotifyRepo;
+import com.example.culturaleventapplication.Notification.repository.NotificationRepository;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.repository.RepoUsers;
 import com.example.culturaleventapplication.culturalevent.dto.CulturalEventDto;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class NotifyService {
 
-    private NotifyRepo notifyRepo;
+    private NotificationRepository notificationRepository;
     private RepoUsers repoUsers;
     private CulturalEventRepository culturalEventRepository;
 
@@ -26,14 +26,14 @@ public class NotifyService {
     public void saveNotificationsToRepo(List<CulturalEventEntity> selectedEvents, List<UserEntity> userEntity) {
         for (int i = 0; i < selectedEvents.size(); i++) {
             NotifyEntity notifyTwoSave = new NotifyEntity(userEntity.getFirst(), selectedEvents.get(i).getTechnicalEventId(), selectedEvents.get(i).getEventName(), selectedEvents.get(i).getCity(), selectedEvents.get(i).getEventDate().toString());
-            notifyRepo.save(notifyTwoSave);
+            notificationRepository.save(notifyTwoSave);
         }
 
     }
 
     public List<TechnicalNotifyDto> getAllbyUserId(Long id) {
         UserEntity userToSearch = repoUsers.getReferenceById(id);
-        return notifyRepo.findAll().stream().
+        return notificationRepository.findAll().stream().
                 filter(e -> e.getUser().getId().equals(userToSearch.getId())).
                 map(e -> new TechnicalNotifyDto(e.getNameOfEvent(), e.getEventCity())).
                 toList();
@@ -75,7 +75,7 @@ public class NotifyService {
         List<UserEntity> users = usersToNotify(culturalEventDto);
         for (int i = 0; i < users.size(); i++) {
             NotifyEntity notifyToSave = new NotifyEntity(users.get(i), findtechnicaltid(culturalEventDto), culturalEventDto.getEventName(), culturalEventDto.getCity(), culturalEventDto.getEventDate());
-            notifyRepo.save(notifyToSave);
+            notificationRepository.save(notifyToSave);
 
         }
     }
