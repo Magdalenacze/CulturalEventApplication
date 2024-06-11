@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -24,14 +25,10 @@ public class CulturalEventController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CulturalEventDto> getAllEvents(@RequestParam(required = false) CulturalEventDto culturalEventDto) {
-        return culturalEventService.getAllEvents();
-    }
-
-    @GetMapping("/")
-    @ResponseStatus(HttpStatus.OK)
-    public List<CulturalEventDto> getAllEventsByCity(@RequestParam String city) {
-        return culturalEventService.getAllEventsByCity(city);
+    public List<CulturalEventDto> getAllEvents(@RequestParam(required = false) Optional<String> city) {
+        return city
+                .map(culturalEventService::getAllEventsByCity)
+                .orElse(culturalEventService.getAllEvents());
     }
 
     @DeleteMapping("{id}")
@@ -44,3 +41,5 @@ public class CulturalEventController {
         culturalEventService.updateEvent(eventId, culturalEventDto);
     }
 }
+
+

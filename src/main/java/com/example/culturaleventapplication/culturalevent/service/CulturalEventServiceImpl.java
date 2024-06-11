@@ -1,6 +1,6 @@
 package com.example.culturaleventapplication.culturalevent.service;
 
-import com.example.culturaleventapplication.Notification.service.NotifyService;
+import com.example.culturaleventapplication.Notification.service.NotificationService;
 import com.example.culturaleventapplication.culturalevent.dto.CulturalEventDto;
 import com.example.culturaleventapplication.culturalevent.entity.CulturalEventEntity;
 import com.example.culturaleventapplication.culturalevent.exception.CulturalEventServiceException;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class CulturalEventServiceImpl implements CulturalEventService {
 
     private final CulturalEventRepository culturalEventRepository;
-    private final NotifyService notifyService;
+    private final NotificationService notificationService;
 
     @Override
     //@Transactional
@@ -26,7 +26,7 @@ public class CulturalEventServiceImpl implements CulturalEventService {
                 culturalEventDto.getCity(),
                 culturalEventDto.getEventDate(),
                 culturalEventDto.getEventName()));
-        notifyService.createNotificationFromEventside(culturalEventDto);
+        notificationService.createNotificationFromEventside(culturalEventDto);
     }
 
     @Override

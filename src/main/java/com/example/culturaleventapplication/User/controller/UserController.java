@@ -1,7 +1,7 @@
 package com.example.culturaleventapplication.User.controller;
 
 import com.example.culturaleventapplication.Notification.dto.TechnicalNotifyDto;
-import com.example.culturaleventapplication.Notification.service.NotifyService;
+import com.example.culturaleventapplication.Notification.service.NotificationService;
 import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.service.UsersService;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private final UsersService usersService;
     @Autowired
-    private final NotifyService notifyService;
+    private final NotificationService notificationService;
 
 
     @PostMapping("/useradd")
@@ -37,7 +37,7 @@ public class UserController {
 
     @GetMapping("/{id}/notifications")
     public List<TechnicalNotifyDto> setNotificationsFromRepo(@PathVariable Long id) {
-        return notifyService.getAllbyUserId(id);
+        return notificationService.getAllbyUserId(id);
     }
 
 

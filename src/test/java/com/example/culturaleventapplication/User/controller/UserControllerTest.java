@@ -1,7 +1,7 @@
 package com.example.culturaleventapplication.User.controller;
 
-import com.example.culturaleventapplication.Notification.repository.NotifyRepo;
-import com.example.culturaleventapplication.Notification.service.NotifyService;
+import com.example.culturaleventapplication.Notification.repository.NotificationRepository;
+import com.example.culturaleventapplication.Notification.service.NotificationService;
 import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.service.UsersService;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +23,9 @@ class UserControllerTest {
     private UsersService usersService;
 
     @Mock
-    private NotifyService notifyService;
+    private NotificationService notificationService;
     @Mock
-    private NotifyRepo notifyRepo;
+    private NotificationRepository notificationRepository;
 
     @InjectMocks
     private UserController userController;

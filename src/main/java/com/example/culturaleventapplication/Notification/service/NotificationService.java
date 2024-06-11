@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class NotifyService {
+public class NotificationService {
 
     private NotificationRepository notificationRepository;
     private RepoUsers repoUsers;

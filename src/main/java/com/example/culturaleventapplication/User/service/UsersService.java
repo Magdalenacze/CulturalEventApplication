@@ -1,6 +1,6 @@
 package com.example.culturaleventapplication.User.service;
 
-import com.example.culturaleventapplication.Notification.service.NotifyService;
+import com.example.culturaleventapplication.Notification.service.NotificationService;
 import com.example.culturaleventapplication.User.dto.UserDto;
 import com.example.culturaleventapplication.User.entity.UserEntity;
 import com.example.culturaleventapplication.User.mapper.Mappers;
@@ -21,7 +21,7 @@ public class UsersService implements UsersServiceInterface {
 
     private Mappers mappers;
     private RepoUsers repoUsers;
-    private NotifyService notifyService;
+    private NotificationService notificationService;
     private CulturalEventRepository culturalEventRepository;
 
     public void addUser(UserDto userDto) throws EmailAlreadyExistsException {
@@ -34,7 +34,7 @@ public class UsersService implements UsersServiceInterface {
         }
         String cityToSearch = userDto.getCity();
         String userEmail = userDto.getEmailAdres();
-        notifyService.saveNotificationsToRepo(findEventsByCity(cityToSearch), getUserEntitybyEmail(userEmail));
+        notificationService.saveNotificationsToRepo(findEventsByCity(cityToSearch), getUserEntitybyEmail(userEmail));
     }
 
     public boolean isEmailAddressCorrect(String emailAddress) {
